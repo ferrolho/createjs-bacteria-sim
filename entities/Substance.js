@@ -11,14 +11,14 @@
 
 		this.rotation = randomBetween(-2, 2);
 
-		this.initShape(randomBetween(0, canvas.width), randomBetween(0, canvas.height));
+		this.initShape();
 	}
 
-	Substance.prototype.initShape = function(x, y) {
+	Substance.prototype.initShape = function() {
 		this.shape = new createjs.Shape();
 
-		this.shape.x = x;
-		this.shape.y = y;
+		this.shape.x = randomBetween(0, canvas.width);
+		this.shape.y = randomBetween(0, canvas.height);
 
 		switch (this.type) {
 			case 0:
@@ -62,6 +62,11 @@
 
 		this.shape.x = (this.shape.x + this.heading.x * this.speed).mod(canvas.width);
 		this.shape.y = (this.shape.y + this.heading.y * this.speed).mod(canvas.height);
+	}
+
+	Substance.prototype.reposition = function() {
+		this.shape.x = randomBetween(0, canvas.width);
+		this.shape.y = randomBetween(0, canvas.height);
 	}
 
 }
