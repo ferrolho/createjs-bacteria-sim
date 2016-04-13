@@ -77,7 +77,7 @@
 			y < this.shape.y - Bacterium.RADIUS || this.shape.y + Bacterium.RADIUS < y)
 			return false;
 
-		return distance(this.shape.x, this.shape.y, x, y) <= Bacterium.RADIUS - Substance.RADIUS;
+		return distance(this.shape.x, this.shape.y, x, y) < Bacterium.RADIUS;
 	}
 
 	Bacterium.prototype.canProcess = function(substance) {
