@@ -1,9 +1,14 @@
 {
+	Bacterium.ID = 0;
 	Bacterium.MAX_ROT = 5;
 	Bacterium.RADIUS = 30;
 	Bacterium.STROKE = 2;
 
 	function Bacterium(x, y) {
+		this.id = ++Bacterium.ID;
+		this.dna = '10010';
+		this.life = 100;
+
 		var rotation = randomBetween(0, 360);
 		this.heading = new Victor(Math.cos(deg2rad(rotation)), Math.sin(deg2rad(rotation)));
 
@@ -33,6 +38,18 @@
 
 		this.shape.x = (this.shape.x + this.heading.x).mod(canvas.width);
 		this.shape.y = (this.shape.y + this.heading.y).mod(canvas.height);
+
+		this.updateLife();
+	}
+
+	Bacterium.prototype.updateLife = function() {
+		this.life -= 1;
+
+		if (this.life <= 0) {
+			stage.removeChild(this.shape);
+
+			bacteria.splice(bacteria.indexOf(this), 1);
+		}
 	}
 
 }

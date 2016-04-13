@@ -19,13 +19,15 @@
 		stage = new createjs.Stage(canvas);
 	}
 
+	var FPS = 60;
+
 	function main() {
 		resize();
 
 		var scene = new Scene();
 
 		// Ticker
-		createjs.Ticker.setFPS(60);
+		createjs.Ticker.setFPS(FPS);
 		createjs.Ticker.addEventListener('tick', tick);
 
 		function tick(event) {

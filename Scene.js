@@ -15,6 +15,8 @@
 		});
 	}
 
+	var BACTERIA_TABLE_FPS = 25;
+
 	Scene.prototype.update = function() {
 		updateStats();
 
@@ -23,6 +25,30 @@
 
 		for (i in substances)
 			substances[i].update();
+
+		if (createjs.Ticker.getTicks() % Math.floor(FPS / BACTERIA_TABLE_FPS) == 0)
+			this.updateBacteriaTable();
+	}
+
+	Scene.prototype.updateBacteriaTable = function() {
+		$('#bacteriaTable > tbody:last-child').empty();
+
+		for (var i = 0; i < Math.min(bacteria.length, 10); i++) {
+			var htmlStr = '';
+
+			htmlStr += '<tr>';
+			htmlStr += '<th scope="row">' + bacteria[i].id + '</th>';
+			htmlStr += '<td>' + bacteria[i].dna + '</td>';
+			htmlStr += '<td>' + bacteria[i].life.toFixed(2) + '</td>';
+			htmlStr += '</tr>';
+
+			$('#bacteriaTable > tbody:last-child').append(htmlStr);
+		}
+
+		if (bacteria.length > 10)
+			$('#tableFooter').show();
+		else
+			$('#tableFooter').hide();
 	}
 
 	/*
