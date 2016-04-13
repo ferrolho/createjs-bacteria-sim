@@ -10,8 +10,8 @@
 
 		spawnBacterium(canvas.width / 2, canvas.height / 2);
 
-		addEventListener("click", function(event) {
-			spawnBacterium(event.clientX, event.clientY);
+		stage.addEventListener("stagemousedown", function(event) {
+			spawnBacterium(event.stageX, event.stageY);
 		});
 	}
 
