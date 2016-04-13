@@ -1,7 +1,7 @@
 {
-	var STROKE_THICKNESS = 5;
-	var RADIUS = 30;
-	var MAX_ROT = 5;
+	Bacterium.MAX_ROT = 5;
+	Bacterium.RADIUS = 30;
+	Bacterium.STROKE = 2;
 
 	function Bacterium(x, y) {
 		var rotation = randomBetween(0, 360);
@@ -17,19 +17,19 @@
 		this.shape.y = y;
 
 		this.shape.graphics
-		.beginFill('silver')
-		.setStrokeStyle(STROKE_THICKNESS,"round")
+		.setStrokeStyle(Bacterium.STROKE,"round")
 		.beginStroke('black')
-		.drawCircle(0, 0, RADIUS);
+		.beginFill('rgba(230, 230, 230, 0.7)')
+		.drawCircle(0, 0, Bacterium.RADIUS);
 
-		this.shape.cache(-RADIUS - STROKE_THICKNESS / 2, -RADIUS - STROKE_THICKNESS / 2, 2 * RADIUS + STROKE_THICKNESS, 2 * RADIUS + STROKE_THICKNESS);
 		this.shape.snapToPixel = true;
+		this.shape.cache(-Bacterium.RADIUS - Bacterium.STROKE / 2, -Bacterium.RADIUS - Bacterium.STROKE / 2, 2 * Bacterium.RADIUS + Bacterium.STROKE, 2 * Bacterium.RADIUS + Bacterium.STROKE);
 
 		stage.addChild(this.shape);
 	}
 
 	Bacterium.prototype.update = function() {
-		this.heading.rotateDeg(randomBetween(-MAX_ROT, MAX_ROT));
+		this.heading.rotateDeg(randomBetween(-Bacterium.MAX_ROT, Bacterium.MAX_ROT));
 
 		this.shape.x = (this.shape.x + this.heading.x).mod(canvas.width);
 		this.shape.y = (this.shape.y + this.heading.y).mod(canvas.height);
@@ -37,4 +37,4 @@
 
 }
 
-console.log('Loaded: entities/Boid.js');
+console.log('Loaded: entities/Bacterium.js');
