@@ -6,8 +6,10 @@
 		this.speed = randomBetweenFloats(0, 1);
 		this.type = randomBetween(0, Substance.Type.length);
 
-		var rotation = randomBetween(0, 360);
-		this.heading = new Victor(Math.cos(deg2rad(rotation)), Math.sin(deg2rad(rotation)));
+		var headingDeg = randomBetween(0, 360);
+		this.heading = new Victor(Math.cos(deg2rad(headingDeg)), Math.sin(deg2rad(headingDeg)));
+
+		this.rotation = randomBetween(-2, 2);
 
 		this.initShape(randomBetween(0, canvas.width), randomBetween(0, canvas.height));
 	}
@@ -40,7 +42,7 @@
 			break;
 
 			default:
-			console.log('Substance.js: Wat?!');
+			this.shape.graphics.beginFill('rgba(100, 100, 100, 0.5)');
 			break;
 		}
 
@@ -56,6 +58,8 @@
 	}
 
 	Substance.prototype.update = function() {
+		this.shape.rotation += this.rotation;
+
 		this.shape.x = (this.shape.x + this.heading.x * this.speed).mod(canvas.width);
 		this.shape.y = (this.shape.y + this.heading.y * this.speed).mod(canvas.height);
 	}
