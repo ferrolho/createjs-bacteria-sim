@@ -25,16 +25,31 @@
 		this.shape.x = x;
 		this.shape.y = y;
 
-		this.shape.graphics
-		.setStrokeStyle(Bacterium.STROKE,"round")
-		.beginStroke('black')
-		.beginFill('rgba(230, 230, 230, 0.7)')
-		.drawCircle(0, 0, Bacterium.RADIUS);
-
-		this.shape.snapToPixel = true;
-		this.shape.cache(-Bacterium.RADIUS - Bacterium.STROKE / 2, -Bacterium.RADIUS - Bacterium.STROKE / 2, 2 * Bacterium.RADIUS + Bacterium.STROKE, 2 * Bacterium.RADIUS + Bacterium.STROKE);
+		this.draw();
 
 		stage.addChild(this.shape);
+	}
+
+	Bacterium.prototype.draw = function() {
+		this.shape.graphics.clear();
+
+		// bacteria
+
+		this.shape.graphics
+		.setStrokeStyle(Bacterium.STROKE)
+		.beginStroke('silver')
+		.beginFill('rgba(230, 230, 230, 0.7)')
+		.drawCircle(0, 0, Bacterium.RADIUS)
+
+		// life bar
+
+		var arcLength = 2 * Math.PI * this.life / 100;
+
+		this.shape.graphics
+		.setStrokeStyle(Bacterium.STROKE)
+		.beginStroke('green')
+		.beginFill('transparent')
+		.arc(0, 0, Bacterium.RADIUS, - Math.PI / 2, - Math.PI / 2 - arcLength, true);
 	}
 
 	Bacterium.prototype.initLabel = function() {
@@ -53,6 +68,8 @@
 
 		this.shape.x = (this.shape.x + this.heading.x).mod(canvas.width);
 		this.shape.y = (this.shape.y + this.heading.y).mod(canvas.height);
+
+		this.draw();
 
 		this.label.x = this.shape.x;
 		this.label.y = this.shape.y;
