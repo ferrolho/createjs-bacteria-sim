@@ -5,7 +5,7 @@
 	function Scene() {
 		createStats();
 
-		for (var i = 0; i < 50; i++)
+		for (var i = 0; i < 100; i++)
 			spawnSubstance();
 
 		spawnBacterium(canvas.width / 2, canvas.height / 2);
@@ -39,16 +39,13 @@
 			htmlStr += '<tr>';
 			htmlStr += '<th scope="row">' + bacteria[i].id + '</th>';
 			htmlStr += '<td>' + bacteria[i].dna + '</td>';
-			htmlStr += '<td>' + bacteria[i].life.toFixed(2) + '</td>';
+			htmlStr += '<td>' + bacteria[i].life.toFixed(1) + '</td>';
 			htmlStr += '</tr>';
 
 			$('#bacteriaTable > tbody:last-child').append(htmlStr);
 		}
 
-		if (bacteria.length > 10)
-			$('#tableFooter').show();
-		else
-			$('#tableFooter').hide();
+		$('#tableFooter').text('Showing ' + Math.min(bacteria.length, 10) + ' of ' + bacteria.length + '.');
 	}
 
 	/*

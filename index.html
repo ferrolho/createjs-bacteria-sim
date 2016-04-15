@@ -2,7 +2,7 @@
 <html lang="en-US">
 <head>
 	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 	<meta property="og:image" content="http://ferrolho.github.io/createjs-boids/assets/thumbnail.jpg" />
@@ -23,7 +23,44 @@
 			</div>
 
 			<div class="col-xs-12 col-md-4">
-				<h2 class="text-center">Bacteria List</h2>
+
+				<!-- Substances -->
+
+				<h4 class="text-center">Substances</h4>
+
+				<div class="text-center">
+					<form>
+						<div class="checkbox-inline">
+							<label><input type="checkbox" value="0" checked>A</label>
+						</div>
+
+						<div class="checkbox-inline">
+							<label><input type="checkbox" value="1" checked>B</label>
+						</div>
+
+						<div class="checkbox-inline">
+							<label><input type="checkbox" value="2" checked>C</label>
+						</div>
+
+						<div class="checkbox-inline">
+							<label><input type="checkbox" value="3" checked>D</label>
+						</div>
+
+						<div class="checkbox-inline">
+							<label><input type="checkbox" value="4" checked>E</label>
+						</div>
+					</form>
+				</div>
+
+				<p class="text-center text-muted">
+					<strong>Checked:</strong> good to eat &mdash; <strong>Unchecked:</strong> poisonous
+				</p>
+
+				<hr>
+
+				<!-- Bacteria List -->
+
+				<h4 class="text-center">Bacteria List</h4>
 
 				<table id="bacteriaTable" class="table table-hover">
 					<thead>
@@ -37,7 +74,7 @@
 					<tbody></tbody>
 				</table>
 
-				<p id="tableFooter" class="text-center text-muted">Bacteria list truncated to 10.</p>
+				<p id="tableFooter" class="text-center text-muted"></p>
 			</div>
 		</div>
 	</div>

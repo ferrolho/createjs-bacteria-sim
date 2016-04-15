@@ -9,7 +9,7 @@
 		this.life = 100;
 
 		this.dna = '';
-		for (var i = 0; i < Substance.Type.length; i++)
+		for (var i = 0; i < Substance.TYPES; i++)
 			this.dna += randomBetween(0, 2);
 
 		var rotation = randomBetween(0, 360);
@@ -39,7 +39,7 @@
 		.setStrokeStyle(Bacterium.STROKE)
 		.beginStroke('silver')
 		.beginFill('rgba(230, 230, 230, 0.7)')
-		.drawCircle(0, 0, Bacterium.RADIUS)
+		.drawCircle(0, 0, Bacterium.RADIUS);
 
 		// life bar
 
@@ -81,12 +81,18 @@
 
 	Bacterium.prototype.consumeSubstances = function() {
 		for (i in substances) {
-			if (this.contains(substances[i].shape.x, substances[i].shape.y)) {
-				this.life += this.canProcess(substances[i]) ? 10 : -10;
+			if (this.eats(substances[i])) {
+				if (this.contains(substances[i].shape.x, substances[i].shape.y)) {
+					this.life += substances[i].isPoisonous() ? -10 : 10;
 
-				substances[i].reposition();
+					substances[i].reposition();
+				}
 			}
 		}
+	}
+
+	Bacterium.prototype.eats = function(substance) {
+		return this.dna[substance.type] == 1;
 	}
 
 	Bacterium.prototype.contains = function(x, y) {
@@ -95,10 +101,6 @@
 			return false;
 
 		return distance(this.shape.x, this.shape.y, x, y) < Bacterium.RADIUS;
-	}
-
-	Bacterium.prototype.canProcess = function(substance) {
-		return this.dna[substance.type] == 1;
 	}
 
 	Bacterium.prototype.updateLife = function() {

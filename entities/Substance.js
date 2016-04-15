@@ -1,10 +1,19 @@
 {
 	Substance.RADIUS = 8;
-	Substance.Type = ['A', 'B', 'C', 'D', 'E'];
+	Substance.TYPES = 5;
+
+	Substance.POISONOUS = [];
+	for (var i = 0; i < Substance.TYPES; i++)
+		Substance.POISONOUS.push(false);
+
+	$('input:checkbox').change(function() {
+		var type = $(this).val();
+		Substance.POISONOUS[type] = !Substance.POISONOUS[type];
+	});
 
 	function Substance() {
 		this.speed = randomBetweenFloats(0, 1);
-		this.type = randomBetween(0, Substance.Type.length);
+		this.type = randomBetween(0, Substance.TYPES);
 
 		var headingDeg = randomBetween(0, 360);
 		this.heading = new Victor(Math.cos(deg2rad(headingDeg)), Math.sin(deg2rad(headingDeg)));
@@ -62,6 +71,10 @@
 
 		this.shape.x = (this.shape.x + this.heading.x * this.speed).mod(canvas.width);
 		this.shape.y = (this.shape.y + this.heading.y * this.speed).mod(canvas.height);
+	}
+
+	Substance.prototype.isPoisonous = function() {
+		return Substance.POISONOUS[this.type];
 	}
 
 	Substance.prototype.reposition = function() {
