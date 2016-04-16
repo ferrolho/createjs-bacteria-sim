@@ -56,6 +56,10 @@
 		bacteria.push(new Bacterium(x, y));
 	}
 
+	function spawnBacterium(x, y, dna) {
+		bacteria.push(new Bacterium(x, y, dna));
+	}
+
 	function spawnSubstance() {
 		substances.push(new Substance());
 	}

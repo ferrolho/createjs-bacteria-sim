@@ -1,11 +1,19 @@
 {
-	function Bacterium(x, y) {
+	function Bacterium(x, y, dna) {
 		this.id = ++Bacterium.ID;
-		this.life = 100;
 
-		this.dna = '';
-		for (var i = 0; i < Substance.TYPES; i++)
-			this.dna += randomBetween(0, 2);
+		if (dna != null) {
+			this.life = 50;
+
+			this.dna = dna;
+			console.log('Generating offspring: ' + this.dna)
+		} else {
+			this.life = 100;
+
+			this.dna = '';
+			for (var i = 0; i < Substance.TYPES; i++)
+				this.dna += randomBetween(0, 2);
+		}
 
 		var rotation = randomBetween(0, 360);
 		this.heading = new Victor(Math.cos(deg2rad(rotation)), Math.sin(deg2rad(rotation)));
@@ -75,7 +83,7 @@
 		this.label.y = this.shape.y;
 
 		this.consumeSubstances();
-
+		this.reproduce();
 		this.updateLife();
 	}
 
@@ -101,6 +109,32 @@
 			return false;
 
 		return distance(this.shape.x, this.shape.y, x, y) < Bacterium.RADIUS;
+	}
+
+	Bacterium.prototype.reproduce = function() {
+		if (this.life > 70) {
+			for (i in bacteria) {
+				var other = bacteria[i];
+
+				if (this == other)
+					continue;
+
+				if (other.life > 70) {
+					if (distance(this.shape.x, this.shape.y, other.shape.x, other.shape.y) < Bacterium.RADIUS * 2) {
+						this.life -= 40;
+						other.life -= 40;
+
+						var newDna = '';
+						for (var i = 0; i < this.dna.length; i++)
+							newDna += randomBetween(0, 2) == 0 ? this.dna[i] : other.dna[i];
+
+						console.log(this.dna + ' + ' + other.dna + ' => ' + newDna)
+
+						spawnBacterium((this.shape.x + other.shape.x) / 2, (this.shape.y + other.shape.y) / 2, newDna);
+					}
+				}
+			}
+		}
 	}
 
 	Bacterium.prototype.updateLife = function() {
