@@ -1,7 +1,4 @@
 {
-	var canvas;
-	var stage;
-
 	function init() {
 		initCreateJS();
 
@@ -9,6 +6,9 @@
 			include('entities/Bacterium.js', 'entities/Substance.js', 'Scene.js', function() { main(); });
 		});
 	}
+
+	var canvas;
+	var stage;
 
 	function initCreateJS() {
 		// resize event listener
@@ -45,6 +45,25 @@
 		canvas.height = window.innerHeight - 15;
 
 		console.log('Resizing canvas to: ' + canvas.width + 'x' + canvas.height);
+	}
+
+	function updateBacteriaTable() {
+		$('#bacteriaTable > tbody:last-child').empty();
+
+		var numItemsToPrint = Math.min(bacteria.length, 10);
+
+		for (var i = 0; i < numItemsToPrint; i++) {
+			var htmlStr = '';
+
+			htmlStr += '<tr>';
+			htmlStr += '<th scope="row">' + bacteria[bacteria.length - 1 - i].id + '</th>';
+			htmlStr += '<td>' + bacteria[bacteria.length - 1 - i].dna.join('') + '</td>';
+			htmlStr += '</tr>';
+
+			$('#bacteriaTable > tbody:last-child').append(htmlStr);
+		}
+
+		$('#tableFooter').text('Showing ' + numItemsToPrint + ' of ' + bacteria.length);
 	}
 
 }

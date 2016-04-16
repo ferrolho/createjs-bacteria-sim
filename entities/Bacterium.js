@@ -6,13 +6,12 @@
 			this.life = 50;
 
 			this.dna = dna;
-			console.log('Generating offspring: ' + this.dna)
 		} else {
 			this.life = 100;
 
-			this.dna = '';
+			this.dna = [];
 			for (var i = 0; i < Substance.TYPES; i++)
-				this.dna += randomBetween(0, 2);
+				this.dna.push(randomBetween(0, 2));
 		}
 
 		var rotation = randomBetween(0, 360);
@@ -124,11 +123,15 @@
 						this.life -= 40;
 						other.life -= 40;
 
-						var newDna = '';
+						var newDna = [];
 						for (var i = 0; i < this.dna.length; i++)
-							newDna += randomBetween(0, 2) == 0 ? this.dna[i] : other.dna[i];
+							newDna.push(randomBetween(0, 2) == 0 ? this.dna[i] : other.dna[i]);
 
-						console.log(this.dna + ' + ' + other.dna + ' => ' + newDna)
+						for (var i = 0; i < newDna.length; i++) {
+							if (randomBetween(0, 100) < 2) {
+								newDna[i] ^= 1;
+							}
+						}
 
 						spawnBacterium((this.shape.x + other.shape.x) / 2, (this.shape.y + other.shape.y) / 2, newDna);
 					}
@@ -145,6 +148,8 @@
 			stage.removeChild(this.label);
 
 			bacteria.splice(bacteria.indexOf(this), 1);
+
+			updateBacteriaTable();
 		} else if (this.life > 100) {
 			this.life = 100;
 		}

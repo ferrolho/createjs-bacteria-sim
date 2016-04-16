@@ -5,7 +5,7 @@
 	function Scene() {
 		createStats();
 
-		for (var i = 0; i < 100; i++)
+		for (var i = 0; i < 500; i++)
 			spawnSubstance();
 
 		spawnBacterium(canvas.width / 2, canvas.height / 2);
@@ -25,27 +25,6 @@
 
 		for (i in substances)
 			substances[i].update();
-
-		if (createjs.Ticker.getTicks() % Math.floor(FPS / BACTERIA_TABLE_FPS) == 0)
-			this.updateBacteriaTable();
-	}
-
-	Scene.prototype.updateBacteriaTable = function() {
-		$('#bacteriaTable > tbody:last-child').empty();
-
-		for (var i = 0; i < Math.min(bacteria.length, 10); i++) {
-			var htmlStr = '';
-
-			htmlStr += '<tr>';
-			htmlStr += '<th scope="row">' + bacteria[i].id + '</th>';
-			htmlStr += '<td>' + bacteria[i].dna + '</td>';
-			htmlStr += '<td>' + bacteria[i].life.toFixed(1) + '</td>';
-			htmlStr += '</tr>';
-
-			$('#bacteriaTable > tbody:last-child').append(htmlStr);
-		}
-
-		$('#tableFooter').text('Showing ' + Math.min(bacteria.length, 10) + ' of ' + bacteria.length + '.');
 	}
 
 	/*
@@ -54,10 +33,14 @@
 
 	function spawnBacterium(x, y) {
 		bacteria.push(new Bacterium(x, y));
+
+		updateBacteriaTable();
 	}
 
 	function spawnBacterium(x, y, dna) {
 		bacteria.push(new Bacterium(x, y, dna));
+
+		updateBacteriaTable();
 	}
 
 	function spawnSubstance() {
