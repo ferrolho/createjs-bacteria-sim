@@ -77,9 +77,10 @@
 		return Substance.POISONOUS[this.type];
 	}
 
-	Substance.prototype.reposition = function() {
-		this.shape.x = randomBetween(0, canvas.width);
-		this.shape.y = randomBetween(0, canvas.height);
+	Substance.prototype.delete = function() {
+		stage.removeChild(this.shape);
+
+		substances.splice(substances.indexOf(this), 1);
 	}
 
 }

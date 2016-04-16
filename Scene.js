@@ -25,6 +25,9 @@
 
 		for (i in substances)
 			substances[i].update();
+
+		if (randomBetween(0, 100) < 10)
+			spawnSubstance();
 	}
 
 	/*

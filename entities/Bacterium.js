@@ -92,7 +92,7 @@
 				if (this.contains(substances[i].shape.x, substances[i].shape.y)) {
 					this.life += substances[i].isPoisonous() ? -10 : 10;
 
-					substances[i].reposition();
+					substances[i].delete();
 				}
 			}
 		}
