@@ -18,7 +18,6 @@
 		this.heading = new Victor(Math.cos(deg2rad(rotation)), Math.sin(deg2rad(rotation)));
 
 		this.initShape(x, y);
-		this.initLabel();
 	}
 
 	Bacterium.ID = 0;
@@ -28,35 +27,12 @@
 
 	Bacterium.prototype.initShape = function(x, y) {
 		this.shape = new createjs.Shape();
+		stage.addChild(this.shape);
 
 		this.shape.x = x;
 		this.shape.y = y;
 
-		this.draw();
-
-		stage.addChild(this.shape);
-	}
-
-	Bacterium.prototype.draw = function() {
-		this.shape.graphics.clear();
-
-		// bacteria
-
-		this.shape.graphics
-		.setStrokeStyle(Bacterium.STROKE)
-		.beginStroke('silver')
-		.beginFill('rgba(230, 230, 230, 0.7)')
-		.drawCircle(0, 0, Bacterium.RADIUS);
-
-		// life bar
-
-		var arcLength = 2 * Math.PI * this.life / 100;
-
-		this.shape.graphics
-		.setStrokeStyle(Bacterium.STROKE)
-		.beginStroke('green')
-		.beginFill('transparent')
-		.arc(0, 0, Bacterium.RADIUS, - Math.PI / 2, - Math.PI / 2 - arcLength, true);
+		this.initLabel();
 	}
 
 	Bacterium.prototype.initLabel = function() {
@@ -76,14 +52,11 @@
 		this.shape.x = (this.shape.x + this.heading.x).mod(canvas.width);
 		this.shape.y = (this.shape.y + this.heading.y).mod(canvas.height);
 
-		this.draw();
-
-		this.label.x = this.shape.x;
-		this.label.y = this.shape.y;
-
 		this.consumeSubstances();
 		this.reproduce();
 		this.updateLife();
+
+		this.draw();
 	}
 
 	Bacterium.prototype.consumeSubstances = function() {
@@ -153,6 +126,45 @@
 		} else if (this.life > 100) {
 			this.life = 100;
 		}
+	}
+
+	Bacterium.prototype.draw = function() {
+		this.shape.graphics.clear();
+
+		// bacteria
+
+		this.shape.graphics
+		.setStrokeStyle(Bacterium.STROKE)
+		.beginStroke('silver')
+		.beginFill('rgba(230, 230, 230, 0.7)')
+		.drawCircle(0, 0, Bacterium.RADIUS);
+
+		// life bar
+
+		var arcLength = 2 * Math.PI * this.life / 100;
+
+		this.shape.graphics
+		.setStrokeStyle(Bacterium.STROKE)
+		.beginStroke('green')
+		.beginFill('transparent')
+		.arc(0, 0, Bacterium.RADIUS, - Math.PI / 2, - Math.PI / 2 - arcLength, true);
+
+		// sensors
+
+		this.shape.graphics
+		.setStrokeStyle(1)
+		.beginStroke('black');
+
+		for (var rads = 0; rads < 2 * Math.PI; rads += Math.PI / 2) {
+			this.shape.graphics
+			.moveTo(Math.cos(rads) * Bacterium.RADIUS, Math.sin(rads) * Bacterium.RADIUS)
+			.lineTo(Math.cos(rads) * Bacterium.RADIUS * 4, Math.sin(rads) * Bacterium.RADIUS * 4)
+		}
+
+		// update label position
+
+		this.label.x = this.shape.x;
+		this.label.y = this.shape.y;
 	}
 
 }
