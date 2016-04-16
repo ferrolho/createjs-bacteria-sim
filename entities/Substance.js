@@ -1,16 +1,4 @@
 {
-	Substance.RADIUS = 8;
-	Substance.TYPES = 5;
-
-	Substance.POISONOUS = [];
-	for (var i = 0; i < Substance.TYPES; i++)
-		Substance.POISONOUS.push(false);
-
-	$('input:checkbox').change(function() {
-		var type = $(this).val();
-		Substance.POISONOUS[type] = !Substance.POISONOUS[type];
-	});
-
 	function Substance() {
 		this.speed = randomBetweenFloats(0, 1);
 		this.type = randomBetween(0, Substance.TYPES);
@@ -22,6 +10,18 @@
 
 		this.initShape();
 	}
+
+	Substance.RADIUS = 8;
+	Substance.TYPES = 5;
+
+	Substance.POISONOUS = [];
+	for (var i = 0; i < Substance.TYPES; i++)
+		Substance.POISONOUS.push(false);
+
+	$('input:checkbox').change(function() {
+		var type = $(this).val();
+		Substance.POISONOUS[type] = !Substance.POISONOUS[type];
+	});
 
 	Substance.prototype.initShape = function() {
 		this.shape = new createjs.Shape();

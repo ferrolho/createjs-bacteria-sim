@@ -1,9 +1,4 @@
 {
-	Bacterium.ID = 0;
-	Bacterium.MAX_ROT = 5;
-	Bacterium.RADIUS = 30;
-	Bacterium.STROKE = 2;
-
 	function Bacterium(x, y) {
 		this.id = ++Bacterium.ID;
 		this.life = 100;
@@ -18,6 +13,11 @@
 		this.initShape(x, y);
 		this.initLabel();
 	}
+
+	Bacterium.ID = 0;
+	Bacterium.MAX_ROT = 5;
+	Bacterium.RADIUS = 30;
+	Bacterium.STROKE = 2;
 
 	Bacterium.prototype.initShape = function(x, y) {
 		this.shape = new createjs.Shape();
