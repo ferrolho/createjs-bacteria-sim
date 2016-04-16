@@ -3,7 +3,9 @@
 		initCreateJS();
 
 		include('Utilities.js', function() {
-			include('entities/Bacterium.js', 'entities/Substance.js', 'Scene.js', function() { main(); });
+			include('entities/Substance.js', 'entities/Sensor.js', function() {
+				include('entities/Bacterium.js', 'Scene.js', function() { main(); });
+			});
 		});
 	}
 
