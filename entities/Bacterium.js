@@ -17,14 +17,10 @@
 		var rotation = randomBetween(0, 360);
 		this.heading = new Victor(Math.cos(deg2rad(rotation)), Math.sin(deg2rad(rotation)));
 
-		this.sensors = [];
-		for (var rads = 0; rads < 2 * Math.PI; rads += Math.PI / 2)
-			this.sensors.push(new Sensor(x, y, rads, Bacterium.RADIUS));
-
 		this.initShape(x, y);
 	}
 
-	Bacterium.DNA_LENGTH = 5 * Substance.TYPES;
+	Bacterium.DNA_LENGTH = Substance.TYPES;
 	Bacterium.ID = 0;
 	Bacterium.MAX_ROT = 5;
 	Bacterium.RADIUS = 30;
@@ -61,17 +57,11 @@
 		this.shape.x = (this.shape.x + this.heading.x).mod(canvas.width);
 		this.shape.y = (this.shape.y + this.heading.y).mod(canvas.height);
 
-		this.updateSensors(this.shape.x, this.shape.y);
 		this.consumeSubstances();
 		this.reproduce();
 		this.updateLife();
 
 		this.draw();
-	}
-
-	Bacterium.prototype.updateSensors = function(x, y) {
-		for (i in this.sensors)
-			this.sensors[i].update(x, y);
 	}
 
 	Bacterium.prototype.consumeSubstances = function() {
@@ -132,9 +122,6 @@
 		this.life -= 0.1;
 
 		if (this.life <= 0) {
-			for (i in this.sensors)
-				this.sensors[i].destroy();
-
 			stage.removeChild(this.shape);
 			stage.removeChild(this.label);
 

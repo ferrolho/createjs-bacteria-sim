@@ -3,7 +3,7 @@
 		initCreateJS();
 
 		include('Utilities.js', function() {
-			include('entities/Substance.js', 'entities/Sensor.js', function() {
+			include('entities/Substance.js', function() {
 				include('entities/Bacterium.js', 'Scene.js', function() { main(); });
 			});
 		});
