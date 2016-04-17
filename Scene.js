@@ -67,7 +67,7 @@
 
 	function updateStats() {
 		var text = "";
-		text += 'Click anywhere to spawn a bacterium.\n\n';
+		text += '        Click anywhere to spawn a bacterium.\n\n';
 		text += 'FPS: ' + Math.round(createjs.Ticker.getMeasuredFPS());
 
 		statsText.text = text;
